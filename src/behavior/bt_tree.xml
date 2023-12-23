@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root BTCPP_format="4" main_tree_to_execute="BehaviorTree">
+  <BehaviorTree ID="BehaviorTree">
+    <Sequence>
+      <Delay delay_msec="1000">
+        <action_node_1 HP_write="{my_HP}"/>
+      </Delay>
+      <Delay delay_msec="1000">
+        <action_node_2 HP_read="{my_HP}"/>
+      </Delay>
+    </Sequence>
+  </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Action ID="action_node_1"
+            editable="true">
+      <output_port name="HP_write"/>
+    </Action>
+    <Action ID="action_node_2"
+            editable="true">
+      <input_port name="HP_read"
+                  default="{my_HP}"/>
+    </Action>
+  </TreeNodesModel>
+
+</root>
