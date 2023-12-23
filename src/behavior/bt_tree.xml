@@ -4,24 +4,26 @@
   <BehaviorTree ID="BehaviorTree">
     <Sequence>
       <Delay delay_msec="1000">
-        <action_node_1 HP_write="{my_HP}"/>
+        <action_node_1 HP_write="{my_HP}"
+                       ros_pub="{my_ros_pub}"/>
       </Delay>
       <Delay delay_msec="1000">
         <action_node_2 HP_read="{my_HP}"/>
       </Delay>
+      <ROS2DecoratorNode ros_pub="{my_ros_pub}" />
     </Sequence>
   </BehaviorTree>
 
   <!-- Description of Node Models (used by Groot) -->
   <TreeNodesModel>
-    <Action ID="action_node_1"
-            editable="true">
+    <Action ID="action_node_1" editable="true">
       <output_port name="HP_write"/>
     </Action>
-    <Action ID="action_node_2"
-            editable="true">
-      <input_port name="HP_read"
-                  default="{my_HP}"/>
+    <Action ID="action_node_2" editable="true">
+      <input_port name="HP_read" default="{my_HP}"/>
+    </Action>
+    <Action ID="ROS2DecoratorNode" editable="true">
+      <input_port name="ros_pub" default="{my_ros_pub}"/>
     </Action>
   </TreeNodesModel>
 

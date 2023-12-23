@@ -12,6 +12,8 @@ int main(int argc, char **argv) {
   //注册树节点
   factory.registerNodeType<action_node_1>("action_node_1");
   factory.registerNodeType<action_node_2>("action_node_2");
+  // 注册ros发布的树节点
+  factory.registerNodeType<ROS2DecoratorNode>("ROS2DecoratorNode");
 
   // 从文件创建一个行为树
   auto tree = factory.createTreeFromFile("./src/behavior/bt_tree.xml");
