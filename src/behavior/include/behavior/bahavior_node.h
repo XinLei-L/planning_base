@@ -12,6 +12,7 @@ class ros2_node : public rclcpp::Node {
   ros2_node(std::string name) : Node(name) {
     RCLCPP_INFO(this->get_logger(), "ros2_node constructor");
     chatter_pub_ = this->create_publisher<std_msgs::msg::String>("ros_pub", 10);
+    chatter_timer_ = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(&ros2_node::timerCallback, this));
     chatter_sub_ = this->create_subscription<std_msgs::msg::String>("ros_pub",
                                                                      10,
                                                                      std::bind(&ros2_node::chatterCallback, this, std::placeholders::_1));
@@ -22,6 +23,7 @@ class ros2_node : public rclcpp::Node {
   }
 
   void timerCallback() {
+    RCLCPP_INFO(this->get_logger(), "timerCallback");
     std_msgs::msg::String msg;
     msg.data = my_ros_pub_value;
     chatter_pub_->publish(msg);
@@ -53,7 +55,7 @@ public:
     setOutput("ros_pub", ros_pub_value);
     // getInput("HP", HP_write_value);
     std::cout << "action1：HP_write_value: " << HP_write_value << std::endl;
-    std::cout << "action1：ros_pub_value: " << ros_pub_value << std::endl;
+    // std::cout << "action1：ros_pub_value: " << ros_pub_value << std::endl;
     return BT::NodeStatus::SUCCESS;
   }
 
@@ -100,6 +102,7 @@ public:
   BT::NodeStatus tick() override {
     //端口映射
     getInput("ros_pub", my_ros_pub_value);
+    std::cout << "ros_pub：ros_pub_value: " << my_ros_pub_value << std::endl;
     return BT::NodeStatus::SUCCESS;
   }
 
